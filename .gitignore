@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+*.log
+
+# Large / regenerable artifacts (weights live on HF, data rebuilds via scripts)
+kaggle-output/
+manual download/
+phone-agent/checkpoints/
+phone-agent/data/*.jsonl
+phone-agent/kaggle-out/
+phone-agent/kaggle-out2/

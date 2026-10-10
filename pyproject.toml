@@ -1,0 +1,13 @@
+[project]
+name = "gnani-multilingual-phone-use"
+version = "0.1.0"
+description = "Phone agent stack: Android agent loop driven by a finetuned System One decision model"
+requires-python = ">=3.12"
+dependencies = [
+  "laya[serve]",
+  "datasets",
+  "matplotlib",
+  "huggingface_hub",
+  "kaggle",
+  "nbformat",
+]
