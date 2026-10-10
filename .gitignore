@@ -11,3 +11,5 @@ phone-agent/checkpoints/
 phone-agent/data/*.jsonl
 phone-agent/kaggle-out/
 phone-agent/kaggle-out2/
+
+kaggle-dataset/
