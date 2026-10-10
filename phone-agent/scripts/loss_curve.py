@@ -1,5 +1,6 @@
 import re
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -96,12 +97,15 @@ epoch 4/4 step 2200 loss -0.3949
 xs, ys, cols = [], [], []
 for m in re.finditer(r"epoch (\d)/4 step (\d+) loss (-?[\d.]+)", LOG):
     e, s, v = int(m.group(1)), int(m.group(2)), float(m.group(3))
-    xs.append((e - 1) * 2200 + s); ys.append(v); cols.append(e)
+    xs.append((e - 1) * 2200 + s)
+    ys.append(v)
+    cols.append(e)
 
 means = {1: 0.5030, 2: 0.4116, 3: 0.4022, 4: 0.3600}
 
 fig, ax = plt.subplots(figsize=(10, 5))
 import collections
+
 by_ep = collections.defaultdict(list)
 for x, y, e in zip(xs, ys, cols):
     by_ep[e].append((x, y))
@@ -110,7 +114,9 @@ for e in sorted(by_ep):
     ax.plot(ex, ey, marker="o", markersize=3, linewidth=1, label=f"epoch {e}")
 for e, m in means.items():
     ax.hlines(m, (e - 1) * 2200, e * 2200, colors="red", linestyles="--", linewidth=1)
-    ax.text(e * 2200 - 100, m + 0.05, f"ep{e} mean {m}", color="red", fontsize=8, ha="right")
+    ax.text(
+        e * 2200 - 100, m + 0.05, f"ep{e} mean {m}", color="red", fontsize=8, ha="right"
+    )
 for e in (1, 2, 3):
     ax.axvline(e * 2200, color="gray", linestyle=":", linewidth=1)
 ax.set_xlabel("micro-step (global)")
@@ -125,8 +131,13 @@ fig2, ax2 = plt.subplots(figsize=(10, 5))
 for e in sorted(by_ep):
     ex, ey = zip(*sorted(by_ep[e]))
     w = 5
-    sy = [sum(ey[max(0, i - w + 1):i + 1]) / len(ey[max(0, i - w + 1):i + 1]) for i in range(len(ey))]
-    ax2.plot(ex, sy, marker="o", markersize=3, linewidth=1.5, label=f"epoch {e} (smooth {w})")
+    sy = [
+        sum(ey[max(0, i - w + 1) : i + 1]) / len(ey[max(0, i - w + 1) : i + 1])
+        for i in range(len(ey))
+    ]
+    ax2.plot(
+        ex, sy, marker="o", markersize=3, linewidth=1.5, label=f"epoch {e} (smooth {w})"
+    )
 for e, m in means.items():
     ax2.hlines(m, (e - 1) * 2200, e * 2200, colors="red", linestyles="--", linewidth=1)
 for e in (1, 2, 3):
