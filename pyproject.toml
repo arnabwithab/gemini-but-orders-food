@@ -10,4 +10,5 @@ dependencies = [
   "huggingface_hub",
   "kaggle",
   "nbformat",
+  "black>=26.10.1",
 ]
